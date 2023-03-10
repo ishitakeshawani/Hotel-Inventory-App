@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Room, RoomList } from './rooms';
 
 @Component({
@@ -6,7 +6,7 @@ import { Room, RoomList } from './rooms';
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css']
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, DoCheck {
   hotelName = "Oakwood"
   numberOfRooms = 10;
   hideRooms = false;
@@ -16,10 +16,16 @@ export class RoomsComponent implements OnInit {
     bookedRooms: 0
   };
   roomList: RoomList[] = []
+  selectedRoom!: RoomList;
+  title: String = "random"
 
 
 
   constructor() { }
+  ngDoCheck(): void {
+    console.log(";lk");
+    
+  }
 
   ngOnInit(): void {
     this.roomList = [{
@@ -52,7 +58,12 @@ export class RoomsComponent implements OnInit {
   }
 
   toggle() {
-    this.hideRooms = !this.hideRooms
+    this.roomList = [...this.roomList,this.selectedRoom]
+    this.title = "hiiiii"
   }
 
+  selectRoom(room: RoomList){
+    this.selectedRoom = room;
+    
+  }
 }
